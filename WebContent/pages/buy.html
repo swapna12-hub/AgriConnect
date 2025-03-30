@@ -1,18 +1,22 @@
-fetch("getProducts")
-  .then(response => response.json()) // Convert response to JSON
-  .then(data => {
-      let productList = document.getElementById("productList");
-      productList.innerHTML = ""; // Clear existing products
-
-      data.forEach(product => {
-          let productHTML = `
-              <div class="product">
-                  <img src="${product.image}" alt="${product.name}">
-                  <h3>${product.name}</h3>
-                  <p>Price: $${product.price}</p>
-                  <button onclick="addToCart(${product.id})">Add to Cart</button>
-              </div>`;
-          productList.innerHTML += productHTML;
-      });
-  })
-  .catch(error => console.error("Error loading products:", error));
+<script>
+    fetch("/getProducts")  // Ensure the correct API path
+    .then(response => response.json()) // Convert response to JSON
+    .then(data => {
+        let productList = document.getElementById("productList"); 
+        productList.innerHTML = ""; // Clear previous content
+        
+        data.forEach(product => {
+            let productHTML = `
+                <div id="productList"></div>  <!-- This ensures productList exists -->
+                <div>
+                    <img src="${product.image}" alt="${product.name}" width="100">
+                    <h3>${product.name}</h3>
+                    <p>Price: $${product.price}</p>
+                    <button>Add to Cart</button>
+                </div>
+            `;
+            productList.innerHTML += productHTML; 
+        });
+    })
+    .catch(error => console.error("Error loading products:", error));
+</script>
